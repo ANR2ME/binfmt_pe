@@ -1,0 +1,5 @@
+For using QtCreator:
+	1. update binfmt_pe.includes - The paths in this file will be used by QtCreator to search for header files. Currently there is one path here which points to the base directory of the kernel headers. Update this path to point to the location of your kernel headers.
+
+Build:
+	$ make

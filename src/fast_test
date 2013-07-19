@@ -1,0 +1,38 @@
+_host_folder=$(dirname $PWD)
+_ssh_host=user1@192.168.2.5
+_ssh_cd_folder=${_host_folder#*/}
+_ssh_cd_folder=${_ssh_cd_folder#*/}
+_ssh_cd_folder=${_ssh_cd_folder#*/}
+_ssh_cd_folder=${_ssh_cd_folder#*/}
+_ssh_sudo='echo 'mfvtm1' | sudo -S'
+
+echo host folder $_host_folder
+echo ssh host $_ssh_host
+echo ssh cd folder $_ssh_cd_folder
+#exit
+
+clear
+
+# copy the source files to the test machine
+echo "Copying directory: $_host_folder"
+sshpass -p 'mfvtm1' scp -r $_host_folder $_ssh_host:~/
+
+sshpass -p 'mfvtm1' ssh -o StrictHostKeyChecking=no $_ssh_host << SSH_TEST_MACHINE
+
+cd $_ssh_cd_folder
+make clean
+make
+cd src
+
+$_ssh_sudo insmod pe_module.ko
+if [[ $? -ne 0 ]]
+then
+	echo "fast_test: error loading kernel module"
+	exit
+fi
+
+./hello_world.exe
+$_ssh_sudo rmmod pe_module.ko
+$_ssh_sudo dmesg | tail -n 200
+
+SSH_TEST_MACHINE
