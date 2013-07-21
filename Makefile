@@ -1,5 +1,5 @@
 obj-m	+= src/binfmt_pe.o
-src/pe_module-objs	:= src/binfmt_pe.o src/pe.o
+src/binfmt_pe-objs	:= src/pe.o
 
 KDIR    := /lib/modules/$(shell uname -r)/build
 PWD     := $(shell pwd)

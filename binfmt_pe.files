@@ -2,3 +2,4 @@ src/binfmt_pe.c
 src/pe.h
 src/pe.c
 src/pe_types.h
+Makefile

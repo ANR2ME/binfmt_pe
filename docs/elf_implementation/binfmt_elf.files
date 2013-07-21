@@ -1,0 +1,7 @@
+fs/binfmt_elf.c
+fs/binfmt_elf_fdpic.c
+include/elf-fdpic.h
+include/elf.h
+include/elfcore-compat.h
+include/elfcore.h
+include/elfnote.h
